@@ -9,7 +9,7 @@
 
 library(tidyverse)
 library(readxl)
-dfmed <- read_excel("Base Medicina.xlsx")
+dfmed <- read_excel("bases-originales/Base Medicina.xlsx")
 View(dfmed)
 # se observa que hay repetidos
 sum(duplicated(dfmed))
@@ -46,8 +46,13 @@ dfmed2 <- dfmed2 %>%
   mutate(across(categoricas, as.factor))
 str(dfmed2)
 table(dfmed2$GDO_ESTUDIOS)
+
+#__________________
 save(dfmed2, file = 'dfmed2.Rda')
+#_________________
+
 library(forcats) #para usar fct_infreq()
+
 
 #Ver "Annotate ggplot bar plot in R" en la carpeta ggplot de Zotero para 
 #que salga la cantidad en números arriba de la barra y 
@@ -107,3 +112,4 @@ dfmed2 %>%
 dfmed2 %>%
   filter(str_detect(NOMBRE, "ELBA"))
 which(str_detect(dfmed2$NOMBRE, "ELBA"))
+

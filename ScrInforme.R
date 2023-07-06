@@ -113,3 +113,6 @@ dfmed2 %>%
   filter(str_detect(NOMBRE, "ELBA"))
 which(str_detect(dfmed2$NOMBRE, "ELBA"))
 
+#Ultima luchita para ver si se sube a github con la utileria de RStudio
+
+

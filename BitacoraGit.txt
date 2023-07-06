@@ -1,0 +1,8 @@
+Bitácora de github:
+no funcionaba con la utilería de github, estaba usando:
+git config --global user.name "lvazdela"
+git config --global user.email "lgvazdela@yahoo.com.mx"
+La cosa funcionaba con la linea de comandos, pero no con la utilería de RStudio.
+En la parte de commit aparecía que no sabía quien era, leí con cuidado el mensaje
+y decía que le quitara el global y sólo quería que fuera local, en esta compo, lo hice,
+LE QUITÉ EL GLOBAL Y YA FUNCIONÓ

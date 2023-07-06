@@ -51,6 +51,7 @@ table(dfmed2$GDO_ESTUDIOS)
 save(dfmed2, file = 'dfmed2.Rda')
 #_________________
 
+load('dfmed2.Rda')
 library(forcats) #para usar fct_infreq()
 
 
@@ -84,8 +85,9 @@ table(dfmed2$DESC_DIST)
 table(dfmed2$DESCRIPCION)
 dfmed2 <- dfmed2 %>%
   mutate(jornada = case_when(str_detect(DESCRIPCION, "HC") & !str_starts(DESCRIPCION, "PI") ~ "Hora clase",
-                           str_detect(DESCRIPCION, "MT") ~ "Medio Tiempo",
-                           str_detect(DESCRIPCION, "TC") ~ "Tiempo Completo"))
+                           str_detect(DESCRIPCION, "MT") ~ "Medio tiempo",
+                           str_detect(DESCRIPCION, "HC") & str_starts(DESCRIPCION, "PI") ~ "Medio tiempo y hora clase",
+                           str_detect(DESCRIPCION, "TC") ~ "Tiempo completo"))
 table(dfmed2$jornada)
 
 dftc <- dfmed2 %>%
@@ -113,6 +115,7 @@ dfmed2 %>%
   filter(str_detect(NOMBRE, "ELBA"))
 which(str_detect(dfmed2$NOMBRE, "ELBA"))
 
-#Ultima luchita para ver si se sube a github con la utileria de RStudio
+which(str_detect(dfmed2$NOMBRE, "GEORGE"))
 
-
+str_detect('PI ASOCIADO B MT PR ASIGNATURA HC 06', "HC") 
+str_detect('PI ASOCIADO B MT PR ASIGNATURA HC 06', "HC") & str_starts('PI ASOCIADO B MT PR ASIGNATURA HC 06', "PI")

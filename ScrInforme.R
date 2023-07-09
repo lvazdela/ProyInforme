@@ -90,10 +90,10 @@ table(dfmed2$DESCRIPCION)
 #                            str_detect(DESCRIPCION, "TC") ~ "Tiempo completo"))
 # table(dfmed2$jornada)
 
-
+prueba <- "MT"
 #detectar medio tiempo más hora clase
 str_detect('PI ASOCIADO B MT PR ASIGNATURA HC 06', "PI.+MT.+HC.+")
-
+str_detect('PI ASOCIADO B MT PR ASIGNATURA HC 06', paste0("PI.+", prueba, ".+HC.+"))
 #detectar hora clase sin medio tiempo
 str_detect('PI ASOCIADO B MT PR ASIGNATURA HC 06', "HC") & !str_detect('PI ASOCIADO B MT PR ASIGNATURA HC 06', "PI.+MT") 
 

@@ -83,13 +83,68 @@ dfmed2 %>%
 names(dfmed2)
 table(dfmed2$DESC_DIST)
 table(dfmed2$DESCRIPCION)
-dfmed2 <- dfmed2 %>%
-  mutate(jornada = case_when(str_detect(DESCRIPCION, "HC") & !str_starts(DESCRIPCION, "PI") ~ "Hora clase",
-                           str_detect(DESCRIPCION, "MT") ~ "Medio tiempo",
-                           str_detect(DESCRIPCION, "HC") & str_starts(DESCRIPCION, "PI") ~ "Medio tiempo y hora clase",
-                           str_detect(DESCRIPCION, "TC") ~ "Tiempo completo"))
-table(dfmed2$jornada)
+# dfmed2 <- dfmed2 %>%
+#   mutate(jornada = case_when(str_detect(DESCRIPCION, "HC") & !str_starts(DESCRIPCION, "PI") ~ "Hora clase",
+#                            str_detect(DESCRIPCION, "MT") & !str_detect("HC") ~ "Medio tiempo",
+#                            str_detect(DESCRIPCION, "MT") & str_starts(DESCRIPCION, "HC") ~ "Medio tiempo y hora clase",
+#                            str_detect(DESCRIPCION, "TC") ~ "Tiempo completo"))
+# table(dfmed2$jornada)
 
+prueba <- "MT"
+#detectar medio tiempo más hora clase
+str_detect('PI ASOCIADO B MT PR ASIGNATURA HC 06', "PI.+MT.+HC.+")
+str_detect('PI ASOCIADO B MT PR ASIGNATURA HC 06', paste0("PI.+", prueba, ".+HC.+"))
+#detectar hora clase sin medio tiempo
+str_detect('PI ASOCIADO B MT PR ASIGNATURA HC 06', "HC") & !str_detect('PI ASOCIADO B MT PR ASIGNATURA HC 06', "PI.+MT") 
+
+#detectar medio tiempo sin hora clase
+str_detect('PI ASOCIADO B MT PR ASIGNATURA HC 06 ', "PI.+MT") & !str_detect('PI ASOCIADO B MT PR ASIGNATURA HC 06', "HC") 
+
+#detectar PIs de tiempo completo 
+str_detect('PI ASOCIADO B TC', "PI.+TC")
+
+dfmed2 <- dfmed2 %>%
+  mutate(jornada = case_when(str_detect(DESCRIPCION, "HC") & !str_detect(DESCRIPCION, "PI.+MT") ~ "HC",
+                             str_detect(DESCRIPCION, "PI.+MT") & !str_detect(DESCRIPCION,"HC") ~ "MT",
+                             str_detect(DESCRIPCION, "PI.+MT.+HC.+") ~ "PI MT y HC",
+                             str_detect(DESCRIPCION, "PI.+TC") ~ "PI TC",
+                             str_starts(DESCRIPCION, "TA.+ MT") ~ "TA MT",
+                             str_starts(DESCRIPCION, "TA.+ TC") ~ "TA TC",
+                             str_detect(DESCRIPCION, "CATEDRA") ~ "Cátedra",
+                             TRUE ~  "Administrativo")) %>%
+  mutate(jornada = as.factor(jornada))
+table(dfmed2$jornada)
+sum(table(dfmed2$jornada))
+
+dfmed2 %>%
+  group_by(jornada) %>%
+  summarise(n = n()) %>%
+  mutate(prop = round(n/sum(n)*100,1)) %>%
+  mutate(jornada = factor(jornada)) %>%
+  ggplot(aes(x = reorder(jornada, -n), y = n)) +
+  geom_col(fill = "olivedrab2", color = "darkgreen") +
+  geom_text(aes(y = n, label = paste(prop, "%")), nudge_y = 5,size = 3) +
+  geom_text(aes(y = n, label = n),nudge_y = 12, size = 3)+
+  labs(x = "Tipo de jornada y categoría",
+       y = "Número de profesores")
+ 
+#EJEMPLO DE LA PÁGINA, SI FUNCIONA, HAY QUE INSTALAR ggstats, funciona para dos variables,
+# la de fill es la que se reporta como proporción de la x
+# d <- as.data.frame(Titanic)
+# ggplot(d) +
+#   aes(x = Class, fill = Sex, weight = Freq, by = Sex, y = after_stat(prop)) +
+#   geom_bar(stat = "prop", position = "dodge") +
+#   scale_y_continuous(labels = scales::percent) +
+#   geom_text(
+#     mapping = aes(
+#       label = scales::percent(after_stat(prop), accuracy = .1),
+#       y = after_stat(0.01)
+#     ),
+#     vjust = "bottom",
+#     position = position_dodge(.9),
+#     stat = "prop"
+#   )
+# install.packages('ggstats')
 dftc <- dfmed2 %>%
   filter(jornada == "Tiempo Completo", GDO_ESTUDIOS == "ESPECIALISTA") %>%
   select(ID_Docente, NOMBRE, EDAD, `Horas a impartir`, `suma horas`, `Observación`)
@@ -113,9 +168,7 @@ dfmed2 %>%
   select(NOMBRE)
 dfmed2 %>%
   filter(str_detect(NOMBRE, "ELBA"))
-which(str_detect(dfmed2$NOMBRE, "ELBA"))
+which(str_detect(dfmed2$NOMBRE, "ARCEGA"))
 
 which(str_detect(dfmed2$NOMBRE, "GEORGE"))
 
-str_detect('PI ASOCIADO B MT PR ASIGNATURA HC 06', "HC") 
-str_detect('PI ASOCIADO B MT PR ASIGNATURA HC 06', "HC") & str_starts('PI ASOCIADO B MT PR ASIGNATURA HC 06', "PI")

@@ -80,6 +80,39 @@ dfmed2 %>%
   labs(x = "Edad de los académicos",
        y = "Densidad")
 
+# Código para localizar las modas: el secreto está en usar la función ggplot_build:
+gEdad <- dfmed2 %>%
+  ggplot(aes(EDAD)) +
+  geom_histogram(aes(y = after_stat(density)), binwidth = 5, fill = "olivedrab3", color = "darkgreen")+
+  #geom_area(stat = 'bin')+
+  geom_density(color = 'red', linewidth = 1)+
+  labs(x = "Edad de los académicos",
+       y = "Densidad")
+datagEdad <- ggplot_build(gEdad)
+x <- datagEdad$data[[1]]$x
+y <- datagEdad$data[[1]]$y
+
+modas1 <- x[which.max(y)] #solo sale la de 40 años
+modas2 <- x[which.max(y[6:12])]
+
+#función tomada de internet:
+getmode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+
+#otra función que calcula más modas:
+find_mode <- function(x) {
+  u <- unique(x)
+  tab <- tabulate(match(x, u))
+  u[tab == max(tab)]
+}
+
+modasy <- find_mode(y)
+modas <- x[which(y == max(y))] # las densidades de 40 y 65 son las mismas, por lo que salen las dos modas
+modasx <- x[which(y == modasy)]
+modasx
+
 names(dfmed2)
 table(dfmed2$DESC_DIST)
 table(dfmed2$DESCRIPCION)

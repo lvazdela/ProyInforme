@@ -7,6 +7,10 @@ En la parte de commit aparecía que no sabía quien era, leí con cuidado el men
 y decía que le quitara el global y sólo quería que fuera local, en esta compo, lo hice,
 LE QUITÉ EL GLOBAL Y YA FUNCIONÓ
 El 19 dejulio lei How do I get git to default to ssh and not https for new repositories y escribí
-el siguiente comando: 
-git config --global url.ssh://git@github.com/.insteadOf https://github.com/
-con la idea de ya no estar poniendo el token cada vez que hago un push.
+    el siguiente comando: 
+    git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+    con la idea de ya no estar poniendo el token cada vez que hago un push.
+    Al parecer ya funcionó, me dio un wrning:
+    Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
+    Hago un nuevo commit para ver si ya funciona.
+    

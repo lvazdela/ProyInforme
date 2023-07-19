@@ -13,4 +13,5 @@ El 19 dejulio lei How do I get git to default to ssh and not https for new repos
     Al parecer ya funcionó, me dio un wrning:
     Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
     Hago un nuevo commit para ver si ya funciona.
-    
+    QUEDA FUNCIONANDO, YA NO PIDE EL TOKEN, ESTE COMMIT QUEDA HECHO CON LA UTILERÍA DE RSTUDIO
+    los anteriores los hice desde la terminal.

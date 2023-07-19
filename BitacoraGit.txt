@@ -6,3 +6,7 @@ La cosa funcionaba con la linea de comandos, pero no con la utilería de RStudio
 En la parte de commit aparecía que no sabía quien era, leí con cuidado el mensaje
 y decía que le quitara el global y sólo quería que fuera local, en esta compo, lo hice,
 LE QUITÉ EL GLOBAL Y YA FUNCIONÓ
+El 19 dejulio lei How do I get git to default to ssh and not https for new repositories y escribí
+el siguiente comando: 
+git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+con la idea de ya no estar poniendo el token cada vez que hago un push.

@@ -15,3 +15,6 @@ El 19 dejulio lei How do I get git to default to ssh and not https for new repos
     Hago un nuevo commit para ver si ya funciona.
     QUEDA FUNCIONANDO, YA NO PIDE EL TOKEN, ESTE COMMIT QUEDA HECHO CON LA UTILERÍA DE RSTUDIO
     los anteriores los hice desde la terminal.
+
+23 de julio 2023:
+VER LA NOTA EN ZOTERO el problema se resolvió creando una nueva ssh key en mi página de github en el menú de perfil de usuario. La SSH key es la que provee RStudio en la opcion tools-globales-git/svn

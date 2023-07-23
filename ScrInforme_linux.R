@@ -92,8 +92,10 @@ datagEdad <- ggplot_build(gEdad)
 x <- datagEdad$data[[1]]$x
 y <- datagEdad$data[[1]]$y
 
+#
 modas1 <- x[which.max(y)] #solo sale la de 40 años
-modas2 <- x[which.max(y[6:12])]
+x2 <- x[6:12]
+modas2 <- x2[which.max(y[6:12])]
 
 #función tomada de internet:
 getmode <- function(v) {

@@ -207,3 +207,27 @@ which(str_detect(dfmed2$NOMBRE, "ARCEGA"))
 
 which(str_detect(dfmed2$NOMBRE, "GEORGE"))
 
+
+# MANEJO DE profesfm2.xlsx ------------------------------------------------
+
+#_______________________________________
+#24 de julio 2023
+#manejo de la base profesfm2.xlsx
+#_______________________________________
+
+library(readxl)
+dfprofes <- read_excel("bases-originales/profesfm2.xlsx")
+View(profes)
+
+names(dfprofes)
+dim(dfprofes)
+nombres <- c('id', 'nombre', 'descripcion', 'definitividad', 'grupo2',
+             'status', 'fajust', 'antiguedad', 'fechanac', 'edad', 'g',
+             'sni', 'prodep', 'ca', 'padron', 'lic', 'instlic', 'especialidad',
+             'instesp', 'maestria', 'instmaestria', 'doctorado', 'instdoctorado', 'obsgrado')
+length(nombres)
+dfprofes <- dfprofes %>%
+  rename_with(~nombres)
+View(dfprofes)
+names(dfprofes)
+table(dfprofes$sni)
